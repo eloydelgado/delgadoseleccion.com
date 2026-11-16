@@ -168,21 +168,27 @@
 		});
 	}
 
-	// No se usa form.reset(): Contact Form 7 escucha "reset" y llama a WordPress.
+	// No se usa form.reset() ni se lanzan eventos "change": Contact Form 7 los
+	// escucha y vuelve a validar (o llama a WordPress), y taparía el mensaje de éxito.
 	function clearFields(fields) {
+		var acceptance = false;
 		fields.forEach(function (f) {
 			var el = f.el;
 			if (el.type === 'checkbox') el.checked = false;
 			else if (el.tagName === 'SELECT') el.selectedIndex = 0;
 			else el.value = '';
-			el.dispatchEvent(new Event('change', { bubbles: true }));
+			if (f.kind === 'acceptance') acceptance = true;
 		});
+		// Como hace Contact Form 7: sin aceptar la política, el botón queda desactivado.
+		var form = fields.length && fields[0].el.form;
+		var button = form && form.matches('.wpcf7-form') && form.querySelector('.wpcf7-submit');
+		if (acceptance && button) button.disabled = true;
 	}
 
 	/* ---------- Interfaz Contact Form 7 ---------- */
 
 	function cf7Status(form, status, message) {
-		form.classList.remove('init', 'invalid', 'sent', 'failed', 'submitting');
+		form.classList.remove('init', 'invalid', 'sent', 'failed', 'submitting', 'validating', 'resetting');
 		form.classList.add(status);
 		form.setAttribute('data-status', status);
 		var out = form.querySelector('.wpcf7-response-output');
