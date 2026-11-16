@@ -1,0 +1,47 @@
+/*
+ * Ajustes de los formularios Divi de la copia estática.
+ *
+ * Casilla de «Términos y Condiciones» (Delgado Experience): el tema pinta la
+ * marca en blanco sobre la casilla blanca (no se veía al marcarla) y la pone
+ * roja mientras se pulsa. Igual en la web original de WordPress.
+ */
+.et_pb_contact_form_container .et_pb_contact_field_checkbox {
+	position: relative;
+}
+
+/* Casilla real: invisible pero accesible con teclado y lectores de pantalla
+   (el tema la oculta con display:none). */
+.et_pb_contact_form_container .et_pb_contact_field_checkbox input[type="checkbox"] {
+	display: block !important;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 18px;
+	height: 18px;
+	margin: 0;
+	opacity: 0;
+	cursor: pointer;
+}
+
+.et_pb_contact_form_container .et_pb_contact_field_checkbox input[type="checkbox"] + label i {
+	border: 1px solid rgba(18, 71, 52, 0.35);
+	box-sizing: border-box;
+}
+
+.et_pb_contact_form_container .et_pb_contact_field_checkbox input[type="checkbox"]:active + label i {
+	background-color: #fff !important;
+}
+
+.et_pb_contact_form_container .et_pb_contact_field_checkbox input[type="checkbox"]:checked + label i::before {
+	color: rgb(18, 71, 52) !important;
+}
+
+.et_pb_contact_form_container .et_pb_contact_field_checkbox input[type="checkbox"]:focus-visible + label i {
+	outline: 2px solid rgb(18, 71, 52);
+	outline-offset: 2px;
+}
+
+/* Aviso de error de la validación (script formularios.js). */
+.et_pb_contact_form_container .et_pb_contact_field_checkbox input.et_contact_error + label i {
+	border-color: rgb(224, 43, 32);
+}
