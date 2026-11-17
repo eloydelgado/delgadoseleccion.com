@@ -26,7 +26,7 @@
 		region: 'europe-west1',
 		functionName: 'contactoWeb',
 		sdk: 'https://www.gstatic.com/firebasejs/11.0.2/',
-		fallbackEmail: 'seleccion@grupo-delgado.com'
+		fallbackEmail: 'web@grupo-delgado.com'
 	};
 
 	var MSG = {
